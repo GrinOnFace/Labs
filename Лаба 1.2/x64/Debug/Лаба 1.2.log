@@ -2,5 +2,4 @@
 C:\Users\renat\visualstudio\Лабораторки\Лаба 1.2\Лаба 1.2.cpp(16,26): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 C:\Users\renat\visualstudio\Лабораторки\Лаба 1.2\Лаба 1.2.cpp(17,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 C:\Users\renat\visualstudio\Лабораторки\Лаба 1.2\Лаба 1.2.cpp(18,26): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-Лаба 1.2.obj : error LNK2019: ссылка на неразрешенный внешний символ "void __cdecl PositionOnZone(int,int,int)" (?PositionOnZone@@YAXHHH@Z) в функции main.
-C:\Users\renat\visualstudio\Лабораторки\Лаба 1.2\x64\Debug\Лаба 1.2.exe : fatal error LNK1120: неразрешенных внешних элементов: 1
+  Лаба 1.2.vcxproj -> C:\Users\renat\visualstudio\Лабораторки\Лаба 1.2\x64\Debug\Лаба 1.2.exe

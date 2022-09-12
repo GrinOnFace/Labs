@@ -50,7 +50,7 @@ void PositionOnLine(int ResFirstLine, int ResSecondLine, int ResThirdLine) {
 	}
 }
 
-void PosiешonOnZone(int ResFirstLine, int ResSecondLine, int ResThirdLine) {
+void PositionOnZone(int ResFirstLine, int ResSecondLine, int ResThirdLine) {
 	if (ResFirstLine == 2 && ResSecondLine == 1 && ResThirdLine == 1) {
 		printf("The point lies in #1 zone\n");
 	}
