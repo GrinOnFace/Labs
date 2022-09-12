@@ -25,9 +25,9 @@ int main() {
             printf("The point lies at the intersection of the lines y = 2x + 2 and y = 0.5x - 1\n");
         }
         else if (ResFirstLine == 0 && ResThirdLine == 0) {
-            printf("The point lies at the intersection of the lines y = 2x + 2 and y = -x + 2\n");
+            printf("The point lies at the intersection of the lines  y = 2x + 2 and y = -x + 2\n");
         }
-        else {
+        else if (ResSecondLine == 0 && ResThirdLine == 0) {
             printf("The point lies at the intersection of the lines y = 0.5x - 1 and y = -x + 2\n");
         }
     }
