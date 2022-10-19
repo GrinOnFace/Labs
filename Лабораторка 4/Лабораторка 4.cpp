@@ -2,69 +2,76 @@
 #include <stdio.h>
 #include <malloc.h>
 
-// если завершилась успешно 0
-// если возникла проблема ввода пользователя вернёт -1
-// если память не освободилась, то -2
-
 unsigned int userInputArraySize();
-int userInputArray(int* arr, unsigned int arrSize);
-int calculation(int* arr, unsigned int addSize, int* sum);
+void CleanUp(double* arr);
+int userInputArray(double* arr, int arrSize);
+int calculation(double* arr, int arrSize, double* sum);
+void MallocF(double** arr, int arrSize);
+void mediana(double max, double min, unsigned int maxPosition, int arrSize, double* sum, double* arr);
+int check(unsigned int maxPosition, int arrSize);
 
 int main()
 {
-	int ret = 0, sum = 0, * arr = NULL;
-	unsigned int arrSize = 0;
-	if (0 == (arrSize = userInputArraySize()))
+	int arrSize = 0;
+	double* arr = NULL, sum = 0;
+	if (2 >= (arrSize = userInputArraySize()))
 	{
-		printf("Error. Incorrect array size");
-		ret = -1;
-		goto CleanUp;
+		printf("Error. Incorrect array size\n");
+		CleanUp(arr);
 	}
-	arr = (int*)malloc(arrSize * sizeof(int));
-	if (arr == NULL)
+	else
 	{
-		printf("Error. Not enough memory");
-		ret = -2;
-		goto CleanUp;
+		MallocF(&arr, arrSize);
+		if (arr)
+		{
+			CleanUp(arr);
+		}
+		if (0 != userInputArray(arr, arrSize))
+		{
+			printf("Input failed\n");
+			CleanUp(arr);
+		}
+		if (0 != calculation(arr, arrSize, &sum))
+		{
+			printf("Input failed\n");
+			CleanUp(arr);
+		}
+		printf("result is %lf\n", sum);
 	}
-	if (0 != (ret = userInputArray(arr, arrSize)))
-	{
-		printf("Input failed");
-		goto CleanUp;
-	}
-	if (0 != (ret = calculation(arr, arrSize, &sum)))
-	{
-		printf("Input failed");
-		goto CleanUp;
-	}
-	printf("result is %d\n", sum);
+}
 
-CleanUp:
+void MallocF(double** arr, int arrSize)
+{
+	double* temp = (double*)malloc(arrSize * sizeof(double));
+	*arr = temp;
+}
+
+void CleanUp(double* arr)
+{
 	if (arr)
 	{
 		free(arr);
 	}
-	return ret;
 }
 
 unsigned int userInputArraySize()
 {
 	printf("Input Array Size\n");
-	unsigned int size = 0;
-	if (1 != scanf("%u", &size))
+	int size = 0;
+	if (1 != scanf("%d", &size))
 	{
 		return 0;
 	}
 	return size;
 }
 
-int userInputArray(int* arr, unsigned int arrSize)
+int userInputArray(double* arr, int arrSize)
 {
-	unsigned int counter = 0;
-	printf("Input %u numbers\n", arrSize);
+	int counter = 0;
+	printf("Input %d numbers\n", arrSize);
 	while (counter < arrSize)
 	{
-		if (1 != scanf("%d", arr + counter++))
+		if (1 != scanf("%lf", arr + counter++))
 		{
 			return -1;
 		}
@@ -72,16 +79,33 @@ int userInputArray(int* arr, unsigned int arrSize)
 	return 0;
 }
 
-int calculation(int* arr, unsigned int arrSize, int* sum)
+void mediana(double max, double min, unsigned int maxPosition, int arrSize, double* sum, double* arr)
 {
-	if (arrSize == 0)
+	double mediana = (min + max) / 2;
+	for (int i = maxPosition + 1; i < arrSize; i++)
 	{
+		if (*(arr + i) > mediana)
+		{
+			*sum += *(arr + i);
+		}
+	}
+}
+
+int check(unsigned int maxPosition, int arrSize)
+{
+	if ((maxPosition + 1 == arrSize) || (maxPosition + 2 == arrSize))
+	{
+		printf("No such elements\n");
 		return -1;
 	}
+	return 0;
+}
 
-	int max = *arr;
+int calculation(double* arr, int arrSize, double* sum)
+{
+	double max = *arr;
 	unsigned int maxPosition = 0;
-	for (unsigned int i = 0; i < arrSize; i++)
+	for (int i = 0; i < arrSize; i++)
 	{
 		if (*(arr + i) > max)
 		{
@@ -89,36 +113,25 @@ int calculation(int* arr, unsigned int arrSize, int* sum)
 			maxPosition = i;
 		}
 	}
-
-	if (maxPosition + 1 == arrSize)
+	if (-1 == check(maxPosition, arrSize))
 	{
-		*sum = 0;
+		return -1;
+	}
+	else {
+		double min = max;
+		max = *(arr + maxPosition + 1);
+		for (int i = maxPosition + 1; i < arrSize; i++)
+		{
+			if (*(arr + i) > max)
+			{
+				max = *(arr + i);
+			}
+			if (*(arr + i) < min)
+			{
+				min = *(arr + i);
+			}
+		}
+		mediana(max, min, maxPosition, arrSize, sum, arr);
 		return 0;
 	}
-
-	int min = max;
-	max = *(arr + maxPosition + 1);
-
-	for (unsigned int i = maxPosition + 1; i < arrSize; i++)
-	{
-		if (*(arr + i) > max)
-		{
-			max = *(arr + i);
-		}
-		if (*(arr + i) < min)
-		{
-			min = *(arr + i);
-		}
-	}
-
-	double mediana = (min + max) / 2;
-	for (unsigned int i = maxPosition + 1; i < arrSize; i++)
-	{
-		if (*(arr + i) > mediana)
-		{
-			*sum += *(arr + i);
-		}
-	}
-
-	return 0;
 }
