@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-unsigned int userInputArraySize();
+int userInputArraySize();
 void CleanUp(double* arr);
 int userInputArray(double* arr, int arrSize);
 int calculation(double* arr, int arrSize, double* sum);
@@ -54,7 +54,7 @@ void CleanUp(double* arr)
 	}
 }
 
-unsigned int userInputArraySize()
+int userInputArraySize()
 {
 	printf("Input Array Size\n");
 	int size = 0;
