@@ -7,33 +7,29 @@ int calculation(double* arr, int arrSize, double* sum);
 int mallocF(double** arr, int arrSize);
 int medianaF(double max, double min, unsigned int maxPosition, int arrSize, double* sum, double* arr);
 
-void main()
+int main()
 {
     int arrSize = 0;
     double sum = 0;
+    double* arr = NULL;
+
     if (2 >= (arrSize = userInputArraySize()))
     {
         printf("Error. Incorrect array size\n");
-    }
-    else
+        return -1;
+    }   
+
+    if (mallocF(&arr, arrSize) == 0)
     {
-        double* arr = NULL;
-        if (mallocF(&arr, arrSize) == 0)
-        {
-            printf("Memory not allocated");
-        }
-        else
-        {
-            if (calculation(arr, arrSize, &sum) == 0)
-            {
-                printf("result is %lf\n", sum);
-                free(arr);
-            }
-            else {
-                free(arr);
-            }
-        }
+        printf("Memory not allocated");
+        return -2;
     }
+
+    if (calculation(arr, arrSize, &sum) == 0)
+    {
+        printf("result is %lf\n", sum);
+    }
+    free(arr);
 }
 
 int mallocF(double** arr, int arrSize)
@@ -46,7 +42,7 @@ int mallocF(double** arr, int arrSize)
     {
         for (int i = 0; i < arrSize; ++i)
         {
-            scanf("%lf", temp + i);
+            scanf_s("%lf", temp + i);
         }
         ans = 1;
     }

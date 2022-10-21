@@ -12,6 +12,7 @@ void sort(double* arr, int arrSize);
 int groupElem(double* arr, int arrSize);
 void sortBelowZero(double* arr, int arrSize);
 void resArray(double* arr, int arrSize);
+void finalCalc(double* arr, int arrSize);
 
 void main()
 {
@@ -26,11 +27,7 @@ void main()
         }
         else
         {
-            sort(arr, arrSize);
-            groupElem(arr, arrSize);
-            sortBelowZero(arr, arrSize);
-            printf("Result of the sorted is: \n");
-            resArray(arr, arrSize);
+            finalCalc(arr, arrSize);
             free(arr);
         }
     }
@@ -111,4 +108,13 @@ void resArray(double* arr, int arrSize) {
     for (int i = 0; i < arrSize; i++) {
         printf("%lf\n", *(arr + i));
     }
+}
+
+void finalCalc(double* arr, int arrSize)
+{
+    sort(arr, arrSize);
+    groupElem(arr, arrSize);
+    sortBelowZero(arr, arrSize);
+    printf("Result of the sorted is: \n");
+    resArray(arr, arrSize);
 }
