@@ -16,20 +16,20 @@ int main()
     if (2 >= (arrSize = userInputArraySize()))
     {
         printf("Error. Incorrect array size\n");
-        return -1;
     }   
-
-    if (mallocF(&arr, arrSize) == 0)
+    else
     {
-        printf("Memory not allocated");
-        return -2;
+        if (mallocF(&arr, arrSize) == 0)
+        {
+            printf("Memory not allocated");
+            return -2;
+        }
+        if (calculation(arr, arrSize, &sum) == 0)
+        {
+            printf("result is %lf\n", sum);
+        }
+        free(arr);
     }
-
-    if (calculation(arr, arrSize, &sum) == 0)
-    {
-        printf("result is %lf\n", sum);
-    }
-    free(arr);
 }
 
 int mallocF(double** arr, int arrSize)
