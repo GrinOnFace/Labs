@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <malloc.h>
 
+//-2 - Память не аллоцировалась
+
 int userInputArraySize();
 int calculation(double* arr, int arrSize, double* sum);
 int mallocF(double** arr, int arrSize);

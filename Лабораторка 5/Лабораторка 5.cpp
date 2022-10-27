@@ -9,9 +9,9 @@ void swap(double* pa, double* pb);
 int check(int arrSize);
 
 void sort(double* arr, int arrSize);
-int groupElem(double* arr, int arrSize);
-void sortBelowZero(double* arr, int arrSize);
 void resArray(double* arr, int arrSize);
+void groupElem(double* arr, int arrSize);
+void sortBelowZero(double* arr, int arrSize);
 void finalCalc(double* arr, int arrSize);
 
 void main()
@@ -43,13 +43,16 @@ int mallocF(double** arr, int arrSize)
     *arr = temp;
     unsigned int ans;
     printf("Input elements of array:\n");
-    if (temp != NULL) {
-        for (int i = 0; i < arrSize; ++i) {
-            scanf("%lf", temp + i);
+    if (temp != NULL) 
+    {
+        for (int i = 0; i < arrSize; ++i) 
+        {
+            scanf_s("%lf", temp + i);
         }
         ans = 1;
     }
-    else {
+    else 
+    {
         ans = 0;
     }
     return ans;
@@ -58,7 +61,7 @@ int mallocF(double** arr, int arrSize)
 int check(int arrSize) 
 {
     unsigned int ans;
-    if (arrSize < 0)
+    if (arrSize <= 0)
         ans = 0;
     else
         ans = 1;
@@ -75,7 +78,7 @@ void swap(double* pa, double* pb)
 void userInputArraySize(int* arrSize)
 {
     printf("Input Array Size\n");
-    scanf("%d", arrSize);
+    scanf_s("%d", arrSize);
 }
 
 void sort(double* arr, int arrSize)
@@ -86,26 +89,31 @@ void sort(double* arr, int arrSize)
                 swap(arr + i, arr + j);
 }
 
-int groupElem(double* arr, int arrSize)
+void groupElem(double* arr, int arrSize)
 {
     int j = 0;
     for (int i = 0; i < arrSize; i++)
-        if (*(arr + i) >= 0) {
+    {
+        if (*(arr + i) >= 0)
+        {
             swap(arr + i, arr + j);
             j++;
         }
-    return j;
+    }
 }
 
-void sortBelowZero(double* arr, int arrSize) {
+void sortBelowZero(double* arr, int arrSize) 
+{
     for (int i = 0; i < arrSize - 1; i++)
         for (int j = i + 1; j < arrSize; j++)
             if (*(arr + i) < 0 && *(arr + i) > *(arr + j))
                 swap(arr + i, arr + j);
 }
 
-void resArray(double* arr, int arrSize) {
-    for (int i = 0; i < arrSize; i++) {
+void resArray(double* arr, int arrsize) 
+{
+    for (int i = 0; i < arrsize; i++) 
+    {
         printf("%lf\n", *(arr + i));
     }
 }
