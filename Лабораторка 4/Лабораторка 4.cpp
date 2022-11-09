@@ -1,8 +1,7 @@
 ﻿#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 #include <malloc.h>
-
-//-2 - Память не аллоцировалась
 
 int userInputArraySize();
 int calculation(double* arr, int arrSize, double* sum);
@@ -24,7 +23,6 @@ int main()
         if (mallocF(&arr, arrSize) == 0)
         {
             printf("Memory not allocated");
-            return -2;
         }
         if (calculation(arr, arrSize, &sum) == 0)
         {
@@ -100,6 +98,7 @@ int medianaF(double max, double min, unsigned int maxPosition, int arrSize, doub
     unsigned int counter = 0;
     double middle = ((max + min) / 2);
     for (int i = maxPosition + 1; i < arrSize; i++)
+
         if (*(arr + i) > middle)
         {
             *sum += *(arr + i);

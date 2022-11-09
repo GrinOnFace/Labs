@@ -3,52 +3,50 @@
 #include <stdio.h>
 #include <malloc.h>
 
-//Если программа вывела -1, то память не аллоцировалась
-//Если программа вывела -2, то все ок
-//Если программа вывела -3, то введенные значения некорректны
-
 void readValue(int* width, int* height);
 int check(int width, int height);
+void swap(double* pa, double* pb);
 
 double** alloc(int width, int height);
 
 void inputMatrix(double** mat, int width, int height);
 void outputMatrix(double** mat, int width, int height);
 
-double** transponse(double** matrixOne, double** matrixTwo, int width, int height);
+double** transponseForRectangle(double** matrixOne, double** matrixTwo, int width, int height);
+double** transponseForSquare(double** matrixOne, int width, int height);
 
 void funcFree(double** mat, int width);
 
-int main() 
-{
+int main(){
     int width, height;
-    while(1)
-    {  
-        readValue(&width, &height);
-        if (check(width, height))
-        {
-            double** matrixOne,** matrixTwo;
-            matrixOne = alloc(width, height);
-            matrixTwo = alloc(height, width);
-            if (matrixOne == NULL || matrixTwo == NULL)
-            {
-                printf("Memory not allocated");
-                return -1;
-            }
-            else
-            {
+    readValue(&width, &height);
+    if (check(width, height)) {
+        double** matrixOne = alloc(width, height);
+        if (matrixOne != NULL) {
+            if (height == width) {
                 inputMatrix(matrixOne, width, height);
-                matrixTwo = transponse(matrixOne, matrixTwo, width, height);
-                outputMatrix(matrixTwo, height, width);
+                transponseForSquare(matrixOne, width, height);
+                outputMatrix(matrixOne, width, height);
                 funcFree(matrixOne, width);
-                funcFree(matrixTwo, height);
-                return -2;
+            }
+            else {
+                double** matrixTwo = alloc(height, width);
+                if (matrixTwo != NULL) {
+                    inputMatrix(matrixOne, width, height);
+                    matrixTwo = transponseForRectangle(matrixOne, matrixTwo, width, height);
+                    outputMatrix(matrixTwo, height, width);
+                    funcFree(matrixOne, width);
+                    funcFree(matrixTwo, height);
+                }
+                else
+                    printf("Memory dont allocated");
             }
         }
-        else
-            printf("Enter correct width and height");
-            return -3;
+        else 
+            printf("Memory dont allocated");
     }
+    else
+        printf("Enter correct width and height");
 }
 
 void inputMatrix(double** mat, int width, int height) {
@@ -89,20 +87,34 @@ double** alloc(int width, int height) {
                     free(*(mat + i));
                 }
                 free(mat);
-                mat = NULL;
             }
         }
     }
     return mat;
 }
 
-double** transponse(double** matrixOne, double** matrixTwo, int width, int height) {
+double** transponseForRectangle(double** matrixOne, double** matrixTwo, int width, int height) {
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             *(*(matrixTwo + j) + i) = *(*(matrixOne + width - 1 - i) + height - 1 - j);
         }
     }
     return matrixTwo;
+}
+
+void swap(double* pa, double* pb) {
+    double temp = *pa;
+    *pa = *pb;
+    *pb = temp;
+}
+
+double** transponseForSquare(double** matrixOne, int width, int height) {
+    for (int i = 0; i < width - 1; i++) {
+        for (int j = 0; j < height - 1; j++) {
+            swap(*(matrixOne + i) + j, *(matrixOne + width - 1 - j) + height - 1 - i);
+        }
+    }
+    return matrixOne;
 }
 
 void funcFree(double** mat, int width) {
