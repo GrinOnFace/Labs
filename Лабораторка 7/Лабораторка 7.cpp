@@ -5,10 +5,10 @@
 #include <stdlib.h>
 
 typedef enum Direction_t {
-    RIGHT,
-    LEFT,
     UP,
-    DOWN
+    DOWN,
+    LEFT,
+    RIGHT,
 } Direction;
 
 typedef struct It_t {

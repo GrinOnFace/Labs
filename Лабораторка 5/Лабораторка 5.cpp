@@ -122,7 +122,6 @@ void finalCalc(double* arr, int arrSize)
 {
     sort(arr, arrSize);
     groupElem(arr, arrSize);
-    sortBelowZero(arr, arrSize);
     printf("Result of the sorted is: \n");
     resArray(arr, arrSize);
 }
